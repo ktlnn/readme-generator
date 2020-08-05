@@ -1,6 +1,6 @@
 var inquirer = require("inquirer");
 const fs = require("fs");
-const { generateMarkdown } = require("./utils/generateMarkdown");
+const {generateMarkdown} = require("./utils/generateMarkdown.js");
 
 inquirer
     .prompt([
@@ -78,4 +78,16 @@ inquirer
         },
 
 
-    ])
+    ]).then(data => {
+        console.log(data);
+        const generateReadme = generateMarkdown(data);
+
+        fs.writeFile("./newReadMe.md", generateReadme, err => {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                console.log("Finished");
+            }
+        })
+    })
